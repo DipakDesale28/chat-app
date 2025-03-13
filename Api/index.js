@@ -31,8 +31,8 @@ app.use(
   })
 );
 
-app.get("/test", (req, res) => {
-  res.json("test ok");
+app.get("/", (req, res) => {
+  res.send("Chat App Backend is Running! 🚀");
 });
 
 async function getUserDataFromRequest(req) {
