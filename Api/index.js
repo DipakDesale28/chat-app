@@ -24,12 +24,19 @@ const bcryptSalt = bcrypt.genSaltSync(10);
 const app = express();
 app.use(express.json());
 app.use(cookieParser());
-app.use(
-  cors({
-    credentials: true,
-    origin: process.env.CLIENT_URL,
-  })
-);
+app.use(cors({
+  origin: "https://chat-app-wc2k.vercel.app", // Replace with your frontend URL
+  methods: ["GET", "POST", "PUT", "DELETE"],
+  credentials: true
+}));
+
+app.use((req, res, next) => {
+  res.header("Access-Control-Allow-Origin", "https://chat-app-wc2k.vercel.app");
+  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
+  res.header("Access-Control-Allow-Headers", "Content-Type, Authorization");
+  res.header("Access-Control-Allow-Credentials", "true");
+  next();
+});
 
 app.get("/", (req, res) => {
   res.send("Chat App Backend is Running! 🚀");
